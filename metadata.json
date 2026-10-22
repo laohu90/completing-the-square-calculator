@@ -1,0 +1,6 @@
+{
+  "name": "SquareMaster - Completing the Square Calculator",
+  "description": "Step-by-step Completing the Square calculator, vertex form converter, and geometric algebra visualizer for quadratic equations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
