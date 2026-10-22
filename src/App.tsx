@@ -58,15 +58,27 @@ export default function App() {
 
   const t: Translations = translations[lang] || translations.en;
 
-  // Initialize from URL search or hash if available (e.g. ?q=x^2%2B6x-7=0 or #a=2&b=8&c=-10&lang=es)
+  // Initialize from URL search or hash if available (e.g. ?q=x^2%2B6x-7=0 or ?q=x^2+6x-7=0 or #a=2&b=8&c=-10&lang=es)
   useEffect(() => {
     try {
-      // Check search params first, then hash
-      const searchParams = new URLSearchParams(window.location.search);
-      const hash = window.location.hash.substring(1);
-      const hashParams = new URLSearchParams(hash);
+      // Helper to extract query parameters preserving literal '+' signs (URLSearchParams converts '+' to ' ')
+      const getQueryParam = (name: string): string | null => {
+        try {
+          const rawSearch = window.location.search;
+          const match = rawSearch.match(new RegExp('(?:\\?|&)' + name + '=([^&#]*)'));
+          if (match) {
+            return decodeURIComponent(match[1].replace(/\+/g, '%2B'));
+          }
+          const rawHash = window.location.hash.substring(1);
+          const hashMatch = rawHash.match(new RegExp('(?:\\?|&|^)' + name + '=([^&#]*)'));
+          if (hashMatch) {
+            return decodeURIComponent(hashMatch[1].replace(/\+/g, '%2B'));
+          }
+        } catch {}
+        return null;
+      };
 
-      const mathQuery = searchParams.get('q') || searchParams.get('math_expression_string') || hashParams.get('q') || hashParams.get('math_expression_string');
+      const mathQuery = getQueryParam('q') || getQueryParam('math_expression_string');
       if (mathQuery) {
         setEquationString(mathQuery);
         const parsed = parseQuadraticString(mathQuery);
@@ -76,16 +88,16 @@ export default function App() {
           setCInput(parsed.c);
         }
       } else {
-        const aVal = searchParams.get('a') || hashParams.get('a');
-        const bVal = searchParams.get('b') || hashParams.get('b');
-        const cVal = searchParams.get('c') || hashParams.get('c');
+        const aVal = getQueryParam('a');
+        const bVal = getQueryParam('b');
+        const cVal = getQueryParam('c');
 
         if (aVal) setAInput(aVal);
         if (bVal) setBInput(bVal);
         if (cVal) setCInput(cVal);
       }
 
-      const lVal = (searchParams.get('lang') || hashParams.get('lang')) as Language;
+      const lVal = getQueryParam('lang') as Language;
       if (lVal && translations[lVal]) {
         setLang(lVal);
       }
@@ -746,32 +758,41 @@ export default function App() {
         {activeTab === 'faq' && <CheatSheetFAQ t={t} />}
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-slate-200 bg-slate-50 py-8 px-6 mt-16 no-print">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-          <div>
-            <p className="font-semibold text-slate-700">{t.footerRights}</p>
-            <p className="mt-0.5">{t.footerDisclaimer}</p>
+      {/* Footer & Usage Terms */}
+      <footer id="terms" className="border-t border-slate-200 bg-slate-50 py-8 px-6 mt-16 no-print">
+        <div className="max-w-6xl mx-auto space-y-4 text-xs text-slate-500">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div>
+              <p className="font-semibold text-slate-700">{t.footerRights}</p>
+              <p className="mt-0.5">{t.footerDisclaimer}</p>
+            </div>
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4 font-medium text-slate-600">
+              <button onClick={() => setActiveTab('solver')} className="hover:text-slate-900 transition-colors">
+                {t.tabSolver}
+              </button>
+              <button onClick={() => setActiveTab('visualizer')} className="hover:text-slate-900 transition-colors">
+                {t.tabVisualizer}
+              </button>
+              <button onClick={() => setActiveTab('examples')} className="hover:text-slate-900 transition-colors">
+                {t.tabExamples}
+              </button>
+              <button onClick={() => setActiveTab('practice')} className="hover:text-slate-900 transition-colors">
+                {t.tabPractice}
+              </button>
+              <button onClick={() => setActiveTab('guide')} className="hover:text-slate-900 transition-colors">
+                {t.tabGuide}
+              </button>
+              <button onClick={() => setActiveTab('faq')} className="hover:text-slate-900 transition-colors">
+                {t.tabFAQ}
+              </button>
+            </div>
           </div>
-          <div className="flex flex-wrap items-center gap-3 sm:gap-4">
-            <button onClick={() => setActiveTab('solver')} className="hover:text-slate-900 transition-colors">
-              {t.tabSolver}
-            </button>
-            <button onClick={() => setActiveTab('visualizer')} className="hover:text-slate-900 transition-colors">
-              {t.tabVisualizer}
-            </button>
-            <button onClick={() => setActiveTab('examples')} className="hover:text-slate-900 transition-colors">
-              {t.tabExamples}
-            </button>
-            <button onClick={() => setActiveTab('practice')} className="hover:text-slate-900 transition-colors">
-              {t.tabPractice}
-            </button>
-            <button onClick={() => setActiveTab('guide')} className="hover:text-slate-900 transition-colors">
-              {t.tabGuide}
-            </button>
-            <button onClick={() => setActiveTab('faq')} className="hover:text-slate-900 transition-colors">
-              {t.tabFAQ}
-            </button>
+          
+          <div className="pt-3 border-t border-slate-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-2 text-[11px] text-slate-400">
+            <p>
+              <span className="font-semibold text-slate-600">Usage Terms & Policy:</span> Free open-source mathematical solver for non-commercial educational use under the MIT License. No personal data collected. No cookies used.
+            </p>
+            <p>© {new Date().getFullYear()} SquareMaster & formulaCalcKit. All rights reserved.</p>
           </div>
         </div>
       </footer>

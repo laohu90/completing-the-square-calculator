@@ -10,13 +10,18 @@ import { Fraction } from './fraction';
  * - "y = 2x^2 - 4x + 8"
  */
 export function parseQuadraticString(input: string): { a: string; b: string; c: string } | null {
-  const clean = input
+  let clean = input
     .toLowerCase()
-    .replace(/\s+/g, '')
-    .replace(/^y=/, '')
-    .replace(/^f\(x\)=/, '');
+    .replace(/^y\s*=\s*/, '')
+    .replace(/^f\(x\)\s*=\s*/, '')
+    .trim();
 
   if (!clean) return null;
+
+  // If terms are separated by spaces without explicit +/- operators (e.g. from URL decoding),
+  // insert '+' between term boundaries: e.g. "x^2 6x" -> "x^2 + 6x"
+  clean = clean.replace(/([0-9x\u00b2^])\s+([0-9x])/gi, '$1 + $2');
+  clean = clean.replace(/\s+/g, '');
 
   // Split by '=' if present
   let lhs = clean;
