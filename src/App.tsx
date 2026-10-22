@@ -58,24 +58,39 @@ export default function App() {
 
   const t: Translations = translations[lang] || translations.en;
 
-  // Initialize from URL hash if available (e.g. #a=2&b=8&c=-10&lang=es)
+  // Initialize from URL search or hash if available (e.g. ?q=x^2%2B6x-7=0 or #a=2&b=8&c=-10&lang=es)
   useEffect(() => {
     try {
+      // Check search params first, then hash
+      const searchParams = new URLSearchParams(window.location.search);
       const hash = window.location.hash.substring(1);
-      if (hash) {
-        const params = new URLSearchParams(hash);
-        const aVal = params.get('a');
-        const bVal = params.get('b');
-        const cVal = params.get('c');
-        const lVal = params.get('lang') as Language;
+      const hashParams = new URLSearchParams(hash);
+
+      const mathQuery = searchParams.get('q') || searchParams.get('math_expression_string') || hashParams.get('q') || hashParams.get('math_expression_string');
+      if (mathQuery) {
+        setEquationString(mathQuery);
+        const parsed = parseQuadraticString(mathQuery);
+        if (parsed) {
+          setAInput(parsed.a);
+          setBInput(parsed.b);
+          setCInput(parsed.c);
+        }
+      } else {
+        const aVal = searchParams.get('a') || hashParams.get('a');
+        const bVal = searchParams.get('b') || hashParams.get('b');
+        const cVal = searchParams.get('c') || hashParams.get('c');
 
         if (aVal) setAInput(aVal);
         if (bVal) setBInput(bVal);
         if (cVal) setCInput(cVal);
-        if (lVal && translations[lVal]) setLang(lVal);
+      }
+
+      const lVal = (searchParams.get('lang') || hashParams.get('lang')) as Language;
+      if (lVal && translations[lVal]) {
+        setLang(lVal);
       }
     } catch {
-      // Hash parse error fallback
+      // URL parse error fallback
     }
   }, []);
 

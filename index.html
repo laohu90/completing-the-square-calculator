@@ -15,7 +15,6 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href="https://completing-the-square-calculator.formulacalckit.com/" />
     <meta property="og:url" content="https://completing-the-square-calculator.formulacalckit.com/" />
-
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Completing the Square Calculator | Step-by-Step Solver" />
@@ -24,7 +23,6 @@
       content="Step-by-step quadratic equation solver & vertex form converter. Visual geometric proof and constant-term balancing breakdown."
     />
     <meta property="og:site_name" content="SquareMaster" />
-
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Completing the Square Calculator | Step-by-Step Solver" />
@@ -32,7 +30,6 @@
       name="twitter:description"
       content="Solve quadratics and convert to vertex form with complete step-by-step proofs and geometric visualizations."
     />
-
     <!-- Google Fonts: Plus Jakarta Sans for crisp readability -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -40,7 +37,6 @@
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-
     <!-- Schema.org Structured Data: WebApplication, HowTo, FAQPage, MathSolver -->
     <script type="application/ld+json">
     {
@@ -62,14 +58,25 @@
           }
         },
         {
-          "@type": "MathSolver",
+          "@type": ["MathSolver", "LearningResource"],
           "@id": "https://completing-the-square-calculator.formulacalckit.com/#mathsolver",
           "name": "Completing the Square Calculator & Solver",
           "url": "https://completing-the-square-calculator.formulacalckit.com/",
-          "potentialAction": {
-            "@type": "SolveAction",
-            "target": "https://completing-the-square-calculator.formulacalckit.com/#a={a}&b={b}&c={c}"
-          }
+          "usageInfo": "https://completing-the-square-calculator.formulacalckit.com/",
+          "inLanguage": "en",
+          "learningResourceType": "Math solver",
+          "potentialAction": [
+            {
+              "@type": "SolveMathAction",
+              "target": "https://completing-the-square-calculator.formulacalckit.com/?q={math_expression_string}",
+              "mathExpression-input": "required name=math_expression_string",
+              "eduQuestionType": [
+                "Quadratic Equation",
+                "Polynomial Equation",
+                "Algebra"
+              ]
+            }
+          ]
         },
         {
           "@type": "BreadcrumbList",
@@ -201,4 +208,3 @@
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-
