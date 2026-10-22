@@ -5,7 +5,9 @@ export interface Translations {
   appTagline: string;
   tabSolver: string;
   tabVisualizer: string;
+  tabExamples: string;
   tabPractice: string;
+  tabGuide: string;
   tabFAQ: string;
   presetsTitle: string;
   quickExamples: string;
@@ -110,8 +112,10 @@ export const translations: Record<Language, Translations> = {
     appTagline: 'Completing the Square Calculator & Step-by-Step Solver',
     tabSolver: 'Step-by-Step Solver',
     tabVisualizer: 'Geometric Area Model',
+    tabExamples: 'Worked Examples',
     tabPractice: 'Practice & Quiz',
-    tabFAQ: 'Formulas & Guide',
+    tabGuide: 'Complete Guide',
+    tabFAQ: 'Formulas & FAQ',
     presetsTitle: 'Quick Examples',
     quickExamples: 'Popular Practice Problems:',
     inputHeader: 'Enter Quadratic Equation',
@@ -208,8 +212,10 @@ export const translations: Record<Language, Translations> = {
     appTagline: 'Calculadora de Completar el Cuadrado Paso a Paso',
     tabSolver: 'Resolución Paso a Paso',
     tabVisualizer: 'Modelo Geométrico',
+    tabExamples: 'Ejemplos Resueltos',
     tabPractice: 'Práctica y Desafíos',
-    tabFAQ: 'Fórmulas y Guía',
+    tabGuide: 'Guía Completa',
+    tabFAQ: 'Fórmulas y FAQ',
     presetsTitle: 'Ejemplos Rápidos',
     quickExamples: 'Problemas Frecuentes:',
     inputHeader: 'Ingresa la Ecuación Cuadrática',
@@ -306,8 +312,10 @@ export const translations: Record<Language, Translations> = {
     appTagline: 'Calculateur de Forme Canonique et Complétion du Carré',
     tabSolver: 'Résolution Détaillée',
     tabVisualizer: 'Modèle Géométrique',
+    tabExamples: 'Exemples Résolus',
     tabPractice: 'Entraînement',
-    tabFAQ: 'Formules & Guide',
+    tabGuide: 'Guide Complet',
+    tabFAQ: 'Formules & FAQ',
     presetsTitle: 'Exemples Rapides',
     quickExamples: 'Exercices Classiques :',
     inputHeader: 'Entrer l’Équation du Second Degré',
@@ -404,8 +412,10 @@ export const translations: Record<Language, Translations> = {
     appTagline: 'Calculadora de Completar Quadrados e Vértice da Parábola',
     tabSolver: 'Resolução Passo a Passo',
     tabVisualizer: 'Modelo Geométrico',
+    tabExamples: 'Exemplos Resolvidos',
     tabPractice: 'Praticar e Exercícios',
-    tabFAQ: 'Fórmulas e Dicas',
+    tabGuide: 'Guia Completo',
+    tabFAQ: 'Fórmulas e FAQ',
     presetsTitle: 'Exemplos Prontos',
     quickExamples: 'Exercícios Comuns:',
     inputHeader: 'Insira a Equação Quadrática',
@@ -502,8 +512,10 @@ export const translations: Record<Language, Translations> = {
     appTagline: '配方法完全平方式计算器 · 二次函数顶点式转换与详细解题步骤',
     tabSolver: '详细解题步骤',
     tabVisualizer: '几何面积拼图模型',
+    tabExamples: '常考经典题库',
     tabPractice: '配平强化练习',
-    tabFAQ: '公式宝典与避坑指南',
+    tabGuide: '知识精讲与考卷',
+    tabFAQ: '公式宝典与问答',
     presetsTitle: '经典常考题型',
     quickExamples: '快速选择题型：',
     inputHeader: '输入一元二次方程或二次函数',

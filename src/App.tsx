@@ -7,6 +7,9 @@ import { ParabolaGraph } from './components/ParabolaGraph';
 import { GeometricSquareVisualizer } from './components/GeometricSquareVisualizer';
 import { PracticeQuiz } from './components/PracticeQuiz';
 import { CheatSheetFAQ } from './components/CheatSheetFAQ';
+import { WorkedExamplesLibrary } from './components/WorkedExamplesLibrary';
+import { ComprehensiveGuide } from './components/ComprehensiveGuide';
+import { GlossaryTerms } from './components/GlossaryTerms';
 import {
   Calculator,
   Grid,
@@ -23,6 +26,7 @@ import {
   Check,
   ChevronRight,
   ChevronLeft,
+  BookOpen,
 } from 'lucide-react';
 
 const PRESETS = [
@@ -37,7 +41,7 @@ const PRESETS = [
 
 export default function App() {
   const [lang, setLang] = useState<Language>('en');
-  const [activeTab, setActiveTab] = useState<'solver' | 'visualizer' | 'practice' | 'faq'>('solver');
+  const [activeTab, setActiveTab] = useState<'solver' | 'visualizer' | 'examples' | 'practice' | 'guide' | 'faq'>('solver');
 
   // Input states
   const [aInput, setAInput] = useState<string>('1');
@@ -161,6 +165,16 @@ export default function App() {
     showToast(t.linkCopied);
   };
 
+  const handleSelectExample = (a: string, b: string, c: string, eq: string) => {
+    setAInput(a);
+    setBInput(b);
+    setCInput(c);
+    setEquationString(eq);
+    setActiveTab('solver');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    showToast(`Loaded: ${eq}`);
+  };
+
   const handlePrint = () => {
     window.print();
   };
@@ -186,7 +200,7 @@ export default function App() {
         </a>
 
         {/* Zone 2: Concise single-line navigation links */}
-        <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
+        <nav className="hidden lg:flex items-center gap-5 text-sm font-medium text-slate-600">
           <button
             onClick={() => setActiveTab('solver')}
             className={`whitespace-nowrap shrink-0 hover:text-slate-900 transition-colors ${
@@ -204,12 +218,28 @@ export default function App() {
             {t.tabVisualizer}
           </button>
           <button
+            onClick={() => setActiveTab('examples')}
+            className={`whitespace-nowrap shrink-0 hover:text-slate-900 transition-colors ${
+              activeTab === 'examples' ? 'text-indigo-600 font-bold' : ''
+            }`}
+          >
+            {t.tabExamples}
+          </button>
+          <button
             onClick={() => setActiveTab('practice')}
             className={`whitespace-nowrap shrink-0 hover:text-slate-900 transition-colors ${
               activeTab === 'practice' ? 'text-indigo-600 font-bold' : ''
             }`}
           >
             {t.tabPractice}
+          </button>
+          <button
+            onClick={() => setActiveTab('guide')}
+            className={`whitespace-nowrap shrink-0 hover:text-slate-900 transition-colors ${
+              activeTab === 'guide' ? 'text-indigo-600 font-bold' : ''
+            }`}
+          >
+            {t.tabGuide}
           </button>
           <button
             onClick={() => setActiveTab('faq')}
@@ -251,7 +281,7 @@ export default function App() {
       </header>
 
       {/* Mobile Tab Bar */}
-      <div className="flex md:hidden border-b border-slate-200 bg-slate-50 px-3 py-2 overflow-x-auto gap-2 no-print">
+      <div className="flex lg:hidden border-b border-slate-200 bg-slate-50 px-3 py-2 overflow-x-auto gap-2 no-print">
         <button
           onClick={() => setActiveTab('solver')}
           className={`px-3 py-1.5 text-xs font-medium rounded-md whitespace-nowrap ${
@@ -269,12 +299,28 @@ export default function App() {
           {t.tabVisualizer}
         </button>
         <button
+          onClick={() => setActiveTab('examples')}
+          className={`px-3 py-1.5 text-xs font-medium rounded-md whitespace-nowrap ${
+            activeTab === 'examples' ? 'bg-white text-indigo-600 shadow-xs font-bold' : 'text-slate-600'
+          }`}
+        >
+          {t.tabExamples}
+        </button>
+        <button
           onClick={() => setActiveTab('practice')}
           className={`px-3 py-1.5 text-xs font-medium rounded-md whitespace-nowrap ${
             activeTab === 'practice' ? 'bg-white text-indigo-600 shadow-xs font-bold' : 'text-slate-600'
           }`}
         >
           {t.tabPractice}
+        </button>
+        <button
+          onClick={() => setActiveTab('guide')}
+          className={`px-3 py-1.5 text-xs font-medium rounded-md whitespace-nowrap ${
+            activeTab === 'guide' ? 'bg-white text-indigo-600 shadow-xs font-bold' : 'text-slate-600'
+          }`}
+        >
+          {t.tabGuide}
         </button>
         <button
           onClick={() => setActiveTab('faq')}
@@ -658,6 +704,10 @@ export default function App() {
                 </div>
               </div>
             </div>
+
+            {/* In-depth worked examples and glossary directly on solver page for Google authority */}
+            <WorkedExamplesLibrary onSelectExample={handleSelectExample} />
+            <GlossaryTerms />
           </div>
         )}
 
@@ -666,10 +716,18 @@ export default function App() {
           <GeometricSquareVisualizer bValue={result.bOverA} t={t} />
         )}
 
-        {/* Tab 3: Practice & Quiz */}
+        {/* Tab 3: Worked Examples Library */}
+        {activeTab === 'examples' && (
+          <WorkedExamplesLibrary onSelectExample={handleSelectExample} />
+        )}
+
+        {/* Tab 4: Practice & Quiz */}
         {activeTab === 'practice' && <PracticeQuiz t={t} />}
 
-        {/* Tab 4: Formulas & FAQ */}
+        {/* Tab 5: Complete Masterclass Guide */}
+        {activeTab === 'guide' && <ComprehensiveGuide />}
+
+        {/* Tab 6: Formulas & FAQ */}
         {activeTab === 'faq' && <CheatSheetFAQ t={t} />}
       </main>
 
@@ -680,15 +738,21 @@ export default function App() {
             <p className="font-semibold text-slate-700">{t.footerRights}</p>
             <p className="mt-0.5">{t.footerDisclaimer}</p>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-3 sm:gap-4">
             <button onClick={() => setActiveTab('solver')} className="hover:text-slate-900 transition-colors">
               {t.tabSolver}
             </button>
             <button onClick={() => setActiveTab('visualizer')} className="hover:text-slate-900 transition-colors">
               {t.tabVisualizer}
             </button>
+            <button onClick={() => setActiveTab('examples')} className="hover:text-slate-900 transition-colors">
+              {t.tabExamples}
+            </button>
             <button onClick={() => setActiveTab('practice')} className="hover:text-slate-900 transition-colors">
               {t.tabPractice}
+            </button>
+            <button onClick={() => setActiveTab('guide')} className="hover:text-slate-900 transition-colors">
+              {t.tabGuide}
             </button>
             <button onClick={() => setActiveTab('faq')} className="hover:text-slate-900 transition-colors">
               {t.tabFAQ}

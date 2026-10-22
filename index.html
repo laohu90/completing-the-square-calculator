@@ -62,6 +62,33 @@
           }
         },
         {
+          "@type": "MathSolver",
+          "@id": "https://completing-the-square-calculator.formulacalckit.com/#mathsolver",
+          "name": "Completing the Square Calculator & Solver",
+          "url": "https://completing-the-square-calculator.formulacalckit.com/",
+          "potentialAction": {
+            "@type": "SolveAction",
+            "target": "https://completing-the-square-calculator.formulacalckit.com/#a={a}&b={b}&c={c}"
+          }
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://completing-the-square-calculator.formulacalckit.com/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Completing the Square Calculator",
+              "item": "https://completing-the-square-calculator.formulacalckit.com/#solver"
+            }
+          ]
+        },
+        {
           "@type": "HowTo",
           "name": "How to Complete the Square to Solve a Quadratic Equation",
           "description": "Learn the exact 5-step method to solve any quadratic equation ax² + bx + c = 0 by completing the square.",
@@ -124,6 +151,30 @@
                 "@type": "Answer",
                 "text": "When the right-hand side after completing the square is negative, taking the square root involves the imaginary unit i (where i = √(-1)). The solutions are complex conjugates of the form x = h ± i√|k/a|."
               }
+            },
+            {
+              "@type": "Question",
+              "name": "What if the leading coefficient a is not equal to 1?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Divide all terms by a (or factor out a) before calculating the constant term. Remember that when balancing the other side of the equation, you must multiply the added constant by a."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How do you complete the square with odd middle coefficients and fractions?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "When b is an odd number (such as 5), half of b is the fraction 5/2. Squaring it produces the fraction 25/4. Add 25/4 to both sides to form (x + 5/2)²."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How is the Quadratic Formula derived by completing the square?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Applying completing the square to the general equation ax² + bx + c = 0 yields (x + b/(2a))² = (b² - 4ac)/(4a²). Taking the square root of both sides gives x = (-b ± √(b² - 4ac))/(2a)."
+              }
             }
           ]
         }
@@ -132,6 +183,20 @@
     </script>
   </head>
   <body class="bg-white text-slate-800 antialiased font-sans selection:bg-indigo-100 selection:text-indigo-900">
+    <noscript>
+      <div style="padding: 2rem; max-width: 800px; margin: 0 auto; font-family: sans-serif;">
+        <h1>Completing the Square Calculator & Step-by-Step Vertex Form Solver</h1>
+        <p>Free step-by-step Completing the Square calculator for solving quadratic equations ax² + bx + c = 0 and converting to parabolic vertex form y = a(x - h)² + k.</p>
+        <h2>How to Complete the Square:</h2>
+        <ol>
+          <li>Isolate variable terms: ax² + bx = -c.</li>
+          <li>Divide or factor out leading coefficient a: x² + (b/a)x = -c/a.</li>
+          <li>Calculate the balancing constant: (b / 2a)².</li>
+          <li>Add (b / 2a)² to both sides: (x + b/(2a))² = (b² - 4ac)/(4a²).</li>
+          <li>Apply the square root property: x = -b/(2a) ± √(b² - 4ac) / (2a).</li>
+        </ol>
+      </div>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
