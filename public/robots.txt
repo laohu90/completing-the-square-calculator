@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://completing-the-square-calculator.formulacalckit.com/sitemap.xml
+Sitemap: https://completing-the-square-calculator.formulacalckit.com/sitemap.txt
